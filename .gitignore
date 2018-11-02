@@ -1,0 +1,7 @@
+*.obj
+*.lib
+Debug.win32
+*.dll
+*.suo
+.vs
+*.pdb
