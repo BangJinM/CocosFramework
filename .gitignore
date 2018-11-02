@@ -5,3 +5,4 @@ Debug.win32
 *.suo
 .vs
 *.pdb
+simulator
