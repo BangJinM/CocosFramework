@@ -16,4 +16,9 @@
       <Filter>Protocol</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OutputSream.cpp">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

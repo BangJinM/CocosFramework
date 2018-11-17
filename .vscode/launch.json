@@ -10,15 +10,15 @@
             "type": "lua",
             "request": "launch",
             "runtimeType": "Cocos2",
-            "localRoot": "${workspaceRoot}",
-            "commandLine": "-workdir ${workspaceRoot} -file src/main.lua",
+            "localRoot": "${workspaceRoot}/src/",
+            "commandLine": "-workdir ${workspaceRoot} -file src/main.lua -scale 0.7 -console",
             "port": 7003,
             "exePath": "${workspaceRoot}/simulator/win32/ProjectName.exe",
             "fileExtNames": [
                 ".lua"
             ],
             "isFoxGloryProject": false,
-            "printType": 2,
+            "printType": 1,
             "checkLuaDebugVersion": true,
         }
     ]
