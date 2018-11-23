@@ -6,7 +6,7 @@ local resource = require("games.tetris.Resource")
 
 
 function GameScene:ctor()
-    local mainLayer =  cc.CSLoader:createNode(resource.GameCSBPath)
+    local mainLayer =  cc.CSLoader:createNodeWithVisibleSize(resource.GameCSBPath)
     self:addChild(mainLayer)
     
 end  
