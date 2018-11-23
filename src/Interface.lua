@@ -13,13 +13,10 @@ end
 
 function Interface.startScene(SceneType , data)
     -- Interface.reLoadCommonMode()
-
     if(SceneType == Interface.SCENETYPE.LOBBYSCENE)then 
-        --require("app.MyApp"):create():run()
         local mainScene = require("MainScene").new()
         display.runScene(mainScene)
     end
-
 end
 
 return Interface
