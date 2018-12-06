@@ -33,13 +33,8 @@ function MainScene:onClickEvent(send,type)
     end
     local name =send:getName()
     if name=="helloWorld.png" then 
-        if(self.view)then 
-            self.view:hide()
-            self.view=nil
-        else
-            self.view = require("framework.ViewBase").new()
-            self.view:show()
-        end
+        local gameInterface = require("games.gameCommon.GameInterface")
+        gameInterface:startGame(1)
     end
 end
 
