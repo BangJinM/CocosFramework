@@ -17,6 +17,10 @@ function Interface.startScene(SceneType , data)
         local mainScene = require("MainScene").new()
         display.runScene(mainScene)
     end
+    local test = fm.LuaBindingTest.new(1)
+    local num1 = test:getNum1()
+    test:setNum1(2)
+    local nu2 = test:getNum1()
 end
 
 return Interface
