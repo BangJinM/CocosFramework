@@ -107,9 +107,9 @@ def main():
         sys.exit(1)
 
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-    cocos_root = os.path.abspath(os.path.join(project_root, ''))
+    cocos_root = os.path.abspath(os.path.join(project_root, '../cocos2d-x'))
     cxx_generator_root = os.path.abspath(os.path.join(project_root, '../cocos2d-x/tools/bindings-generator'))
-
+    print(cxx_generator_root)
     # save config to file
     config = ConfigParser.ConfigParser()
     config.set('DEFAULT', 'androidndkdir', ndk_root)
@@ -158,22 +158,7 @@ def main():
         tolua_root = '%s/tools/tolua' % project_root
         output_dir = '%s/scripting/lua-bindings/auto' % project_root
 
-        cmd_args = {#'cocos2dx.ini' : ('cocos2d-x', 'lua_cocos2dx_auto'), \
-                    #'cocos2dx_extension.ini' : ('cocos2dx_extension', 'lua_cocos2dx_extension_auto'), \
-                    #'cocos2dx_ui.ini' : ('cocos2dx_ui', 'lua_cocos2dx_ui_auto'), \
-                    #'cocos2dx_studio.ini' : ('cocos2dx_studio', 'lua_cocos2dx_studio_auto'), \
-                    #'cocos2dx_spine.ini' : ('cocos2dx_spine', 'lua_cocos2dx_spine_auto'), \
-                    #'cocos2dx_physics.ini' : ('cocos2dx_physics', 'lua_cocos2dx_physics_auto'), \
-                   # 'cocos2dx_experimental_video.ini' : ('cocos2dx_experimental_video', 'lua_cocos2dx_experimental_video_auto'), \
-                    #'cocos2dx_experimental.ini' : ('cocos2dx_experimental', 'lua_cocos2dx_experimental_auto'), \
-                    #'cocos2dx_controller.ini' : ('cocos2dx_controller', 'lua_cocos2dx_controller_auto'), \
-                    ##'cocos2dx_cocosbuilder.ini': ('cocos2dx_cocosbuilder', 'lua_cocos2dx_cocosbuilder_auto'), \
-                    #'cocos2dx_cocosdenshion.ini': ('cocos2dx_cocosdenshion', 'lua_cocos2dx_cocosdenshion_auto'), \
-                    #'cocos2dx_3d.ini': ('cocos2dx_3d', 'lua_cocos2dx_3d_auto'), \
-                    #'cocos2dx_audioengine.ini': ('cocos2dx_audioengine', 'lua_cocos2dx_audioengine_auto'), \
-                    #'cocos2dx_csloader.ini' : ('cocos2dx_csloader', 'lua_cocos2dx_csloader_auto'), \
-                    #'cocos2dx_experimental_webview.ini' : ('cocos2dx_experimental_webview', 'lua_cocos2dx_experimental_webview_auto'), \
-                    #'cocos2dx_physics3d.ini' : ('cocos2dx_physics3d', 'lua_cocos2dx_physics3d_auto'), \
+        cmd_args = {
                     'OutputStream.ini' : ('OutputStream', 'lua_OutputStream_auto'), \
                     }
         target = 'lua'

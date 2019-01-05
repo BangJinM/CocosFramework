@@ -233,13 +233,27 @@ function display.newScene(name, params)
     else
         scene = cc.Scene:createWithPhysics()
     end
+    scene:registerScriptHandler(handler(scene,display.nodeEvent))
     scene.name_ = string.format("%s:%d", name or "<unknown-scene>", sceneIndex)
-
     if params.transition then
         scene = display.wrapSceneWithTransition(scene, params.transition, params.time, params.more)
     end
 
     return scene
+end
+
+function display.nodeEvent(self,event)
+    if event == "enter" and self.onEnter ~= nil then
+        self:onEnter()
+    elseif event == "exit" and self.onExit ~= nil then
+        self:onExit()
+    elseif event == "enterTransitionFinish" and self.onEnterTransitionDidFinish ~= nil  then
+        self:onEnterTransitionDidFinish()
+    elseif event == "exitTransitionStart" and self.onExitTransitionDidStart ~= nil then
+        self:onExitTransitionDidStart()
+    elseif event == "cleanup" and self.onCleanup ~= nil then
+        self:onCleanup()
+    end
 end
 
 function display.wrapScene(scene, transition, time, more)

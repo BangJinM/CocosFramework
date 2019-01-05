@@ -155,6 +155,9 @@
     <ClInclude Include="Protocol\OutputStream.h" />
     <ClInclude Include="Protocol\StreamBase.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="OutputSream.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
