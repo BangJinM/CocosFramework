@@ -15,6 +15,23 @@ class Value:
         self.name.append(name)
 values = {}
 
+class Log:
+
+    def __init__(self,path):
+        self.path = path
+        if os.path.exists(path): 
+            os.remove(path)
+        self.fileLog = open(path,'w')
+        self.close()
+
+    def log(self,str):
+        self.fileLog = open(self.path, 'a')
+        self.fileLog.write(str)
+        self.close()
+
+    def close(self):
+        if self.fileLog :
+            self.fileLog.close()
 
 def foreachPath(rootPath):
     exists = os.path.exists(rootPath)
@@ -52,18 +69,25 @@ def get_FileSize(filePath):
     fsize = fsize/float(1024)
     return fsize
 
-def printMD5():
+def printMD5(path):
     wasteSize = float(0.0)
+    log = Log(path)
     for _, value in values.items():
         if(value.num >= 2):
             size = get_FileSize(value.path[0])
             wasteSize += size * (value.num - 1.0)
             for i in range(value.num):  
-                print("num:%d\t\tname:%s\t\tfullPahth:%s\t\tmd5:%s"%(value.num,value.name[i-1],value.path[i-1],value.md5))
+                str = "num:%d\t\tname:%s\t\tfullPahth:%s\t\tmd5:%s\n"%(value.num,value.name[i-1],value.path[i-1],value.md5)
+                print("num:%d\t\tname:%s\t\tfullPahth:%s\t\tmd5:%s\n"%(value.num,value.name[i-1],value.path[i-1],value.md5))
+                log.log(str)
             print("\n")
+            log.log("\n\n\n")
     print("wasteSize:%f"%(wasteSize))
+    log.log("wasteSize:%f"%(wasteSize))
+
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.realpath(__file__))
-    resource_root = os.path.join(current_dir,"res/lobby")
+    resource_root = os.path.join(current_dir,"Resources")
     foreachPath(resource_root)
-    printMD5()
+    printMD5(os.path.join(current_dir,"text.txt"))
+    dir = raw_input()
