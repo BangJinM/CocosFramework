@@ -694,7 +694,8 @@ local LuaDebugger = {
 	runLineCount = 0,
 	--分割字符串缓存
 	splitFilePaths = {},
-	version="1.0.7"
+    version="0.9.3",
+    serVarLevel = 4
 }
 local debug_hook = nil
 local _resume = coroutine.resume
@@ -843,9 +844,10 @@ end
 local function debugger_getFilePathInfo(file)	
 	local fileName = nil
     local dir = nil
+    file = file:gsub("/.\\", "/")
 	file = file:gsub("\\", "/")
 	file = file:gsub("//", "/")
-	file = file:gsub("/./", "/")
+	
 
 	if file:find("@") == 1 then
         file = file:sub(2)
@@ -1001,16 +1003,30 @@ end
 --@endregion
 local function debugger_valueToString(v)
     local vtype = type(v)
-  
     local vstr = nil
     if (vtype == "userdata") then
-        if (tolua and tolua.isnull and tolua.isnull(v)) then
-            return "userdata(null)",vtype
+        if (LuaDebugger.isFoxGloryProject ) then
+           
+            return "userdata",vtype
+        
         else
             return tostring(v), vtype
         end
-    elseif (vtype == "table" or vtype == "function") then
-        return tostring(v), vtype
+    elseif (vtype == "table" or vtype == "function" or vtype == "boolean") then
+        local value = vtype
+        xpcall(function() 
+            if(LuaDebugger.isFoxGloryProject) then
+                value = vtype
+            else
+                value = tostring(v)
+            end
+            
+        end,function()
+            value = vtype
+        end)
+        return value, vtype
+    elseif (vtype == "number" or vtype == "string" ) then
+        return v, vtype
     else
         return tostring(v), vtype
     end
@@ -1018,7 +1034,9 @@ end
 local function debugger_setVarInfo(name, value)
     local valueStr, valueType = debugger_valueToString(value)
     local nameStr,nameType = debugger_valueToString(name)
-    
+    if(valueStr == nil) then
+        valueStr = valueType
+    end
     local valueInfo = {
         name =nameStr,
         valueType = valueType,
@@ -1130,7 +1148,10 @@ local function debugger_receiveDebugBreakInfo()
 		end
 	end
 	if (breakInfoSocket) then
-		local msg, status = breakInfoSocket:receive()
+        local msg, status = breakInfoSocket:receive()
+        if(LuaDebugger.isLaunch == true and  status == "closed") then
+            os.exit()
+        end
 		if (msg) then
 			local netData = json.decode(msg)
 			if netData.event == LuaDebugger.event.S2C_SetBreakPoints then
@@ -1554,15 +1575,7 @@ local function debugger_GeVarInfoBytUserData(server, var)
 	local fileds = LuaDebugTool.getUserDataInfo(var)
 	
 	local varInfos = {}
-	if (tolua and tolua.getpeer) then
-		local luavars = tolua.getpeer(var)
-		if (luavars) then
-			for k, v in pairs(luavars) do
-				local vinfo = debugger_setVarInfo(k, v)
-				table.insert(varInfos, vinfo)
-			end			
-		end
-	end
+
 	
 	--c# vars
 	for i = 1, fileds.Count do
@@ -1699,7 +1712,7 @@ end
 local function debugger_searchVarByKeys(value, keys, searckKeys)
     local index, val = debugger_getVarByKeys(value, searckKeys, 1)
 
-    if (not LuaDebugTool) then
+    if (not LuaDebugTool or  not LuaDebugTool.getCSharpValue or type(LuaDebugTool.getCSharpValue) ~= "function") then
         return index, val
     end
     if (val) then
@@ -1732,6 +1745,7 @@ end
     return
 ]]
 local function debugger_getmetatable(value, metatable, vinfos, server, variablesReference, debugSpeedIndex, metatables)
+   
     for i, mtable in ipairs(metatables) do
         if (metatable == mtable) then
             return vinfos
@@ -1780,12 +1794,14 @@ local function debugger_getmetatable(value, metatable, vinfos, server, variables
             end
         end
     end
+    
     local m = getmetatable(metatable)
     if (m) then
         return debugger_getmetatable(value, m, vinfos, server, variablesReference, debugSpeedIndex, metatables)
     else
         return vinfos
     end
+   
 end
 local function debugger_sendTableField(luatable, vinfos, server, variablesReference, debugSpeedIndex, valueType)
     if (valueType == "userdata") then
@@ -1824,11 +1840,12 @@ local function debugger_sendTableValues(value, server, variablesReference, debug
     local valueType = type(value)
     local userDataInfos = {}
     local m = nil
+    
     if (valueType == "userdata") then
-        if (tolua and tolua.getpeer) then
-            m = getmetatable(value)
-            vinfos = debugger_sendTableField(value, vinfos, server, variablesReference, debugSpeedIndex, valueType)
-        end
+        m = getmetatable(value)
+      
+        vinfos = debugger_sendTableField(value, vinfos, server, variablesReference, debugSpeedIndex, valueType)
+     
         if (LuaDebugTool) then
             local varInfos = debugger_GeVarInfoBytUserData(server, value, variablesReference, debugSpeedIndex)
 
@@ -1857,7 +1874,7 @@ local function debugger_sendTableValues(value, server, variablesReference, debug
                     vinfos = {}
                 end
             end
-            m = getmetatable(value)
+           
         end
     else
         m = getmetatable(value)
@@ -1888,7 +1905,6 @@ local function debugger_getBreakVar(body, server)
 		local frameId = body.frameId
         local type_ = body.type
         local keys = body.keys
-				
 		--找到对应的var
 		local vars = nil
 		if (type_ == 1) then
@@ -1903,15 +1919,20 @@ local function debugger_getBreakVar(body, server)
 		if (#keys == 0) then
 			debugger_sendTableValues(vars, server, variablesReference, debugSpeedIndex)
 			return
-		end
+		end 
 		local index, value = debugger_searchVarByKeys(vars, keys, keys)
 		if (value) then
 			local valueType = type(value)
-			if (valueType == "table" or valueType == "userdata") then
+            if (valueType == "table" or valueType == "userdata") then
+                
 				debugger_sendTableValues(value, server, variablesReference, debugSpeedIndex)
 			else
-				if (valueType == "function") then
-					value = tostring(value)
+                if (valueType == "function") then
+                    if(LuaDebugger.isFoxGloryProject) then
+                    value = "function"
+                    else
+                        value = tostring(value)
+                    end
 				end
 				debugger_sendMsg(
                     server,
@@ -1981,16 +2002,25 @@ local function debugger_loop(server)
 	while true do
 		local line, status = server:receive()
 		if (status == "closed") then
-			debug.sethook()
-			coroutine.yield()
+            if(LuaDebugger.isLaunch) then
+                os.exit()
+            else
+                debug.sethook()
+                coroutine.yield()
+            end
 		end
 		if (line) then
 			local netData = json.decode(line)
 			local event = netData.event
             local body = netData.data
             if (event == LuaDebugger.event.S2C_DebugClose) then
-				debug.sethook()
-				coroutine.yield()
+            if(LuaDebugger.isLaunch) then
+                os.exit()
+            else
+                debug.sethook()
+                coroutine.yield()
+            end
+       
 			elseif event == LuaDebugger.event.S2C_SetBreakPoints then
 				--设置断点信息
 				local function setB()
@@ -2005,11 +2035,13 @@ local function debugger_loop(server)
 			elseif event == LuaDebugger.event.S2C_RUN then --开始运行
 				LuaDebugger.runTimeType = body.runTimeType
 				LuaDebugger.isProntToConsole = body.isProntToConsole
-				LuaDebugger.isFoxGloryProject = body.isFoxGloryProject
+                LuaDebugger.isFoxGloryProject = body.isFoxGloryProject
+                LuaDebugger.isLaunch = body.isLaunch
 				ResetDebugInfo()
 				LuaDebugger.currentDebuggerData = nil
 				LuaDebugger.Run = true
-				LuaDebugger.tempRunFlag = true
+                LuaDebugger.tempRunFlag = true
+                LuaDebugger.currentLine= nil
 				local data = coroutine.yield()
 				LuaDebugger.serVarLevel = 4
 				LuaDebugger.currentDebuggerData = data
@@ -2329,7 +2361,10 @@ end
 
 local function debugger_xpcall()
 	--调用 coro_debugger 并传入 参数
-	local data = debugger_stackInfo(4, LuaDebugger.event.C2S_HITBreakPoint)
+    local data = debugger_stackInfo(4, LuaDebugger.event.C2S_HITBreakPoint)
+    if(data.stack and data.stack[1]) then
+        data.stack[1].isXpCall = true    
+    end
 	--挂起等待调试器作出反应
     _resume(coro_debugger, data)
     checkSetVar()
