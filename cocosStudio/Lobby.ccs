@@ -15,10 +15,10 @@
         </Folder>
         <Folder Name="ui">
           <Folder Name="lobby">
-            <Image Name="LobbyBG.jpg" />
             <Folder Name="image">
               <Image Name="Table.jpg" />
             </Folder>
+            <Image Name="LobbyBG.jpg" />
           </Folder>
         </Folder>
       </RootFolder>
