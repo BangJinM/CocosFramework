@@ -23,7 +23,7 @@
     <ProjectGuid>{FBE0D497-4488-455C-884D-19309C15CE7B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libutils</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
