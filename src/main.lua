@@ -4,10 +4,10 @@ local breakSocketHandle,debugXpCall = require("LuaDebugjit")("localhost",7003)
 cc.Director:getInstance():getScheduler():scheduleScriptFunc(breakSocketHandle, 0.3, false)
 
 require "cocos.init"
-require "init"
+require "init.init"
 
 local cclog = function(...)
-    print(string.format(...))
+    release_print(string.format(...))
 end
 
 function __G__TRACKBACK__(msg)
