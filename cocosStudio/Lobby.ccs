@@ -1,0 +1,27 @@
+<Solution>
+  <PropertyGroup Name="Lobby" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="res">
+          <Folder Name="views">
+            <Folder Name="lobby">
+              <Folder Name="table">
+                <Project Name="Layer.csd" Type="Layer" />
+              </Folder>
+              <Project Name="Scene.csd" Type="Scene" />
+            </Folder>
+          </Folder>
+        </Folder>
+        <Folder Name="ui">
+          <Folder Name="lobby">
+            <Image Name="LobbyBG.jpg" />
+            <Folder Name="image">
+              <Image Name="Table.jpg" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
