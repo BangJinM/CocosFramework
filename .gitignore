@@ -6,3 +6,4 @@ Debug.win32
 .vs
 *.pdb
 simulator
+LuaExtend.lua

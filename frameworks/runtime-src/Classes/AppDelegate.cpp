@@ -80,7 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 #if CC_64BITS
     FileUtils::getInstance()->addSearchPath("src/64bit");
 #endif
-    FileUtils::getInstance()->addSearchPath("src");
+    FileUtils::getInstance()->addSearchPath("ui");
     FileUtils::getInstance()->addSearchPath("res");
     if (engine->executeScriptFile("main.lua"))
     {
