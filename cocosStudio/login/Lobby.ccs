@@ -5,20 +5,18 @@
       <RootFolder Name=".">
         <Folder Name="res">
           <Folder Name="views">
-            <Folder Name="lobby">
-              <Folder Name="table">
-                <Project Name="Layer.csd" Type="Layer" />
-              </Folder>
-              <Project Name="Scene.csd" Type="Scene" />
+            <Folder Name="login">
+              <Project Name="login.csd" Type="Scene" />
             </Folder>
           </Folder>
         </Folder>
         <Folder Name="ui">
-          <Folder Name="lobby">
-            <Folder Name="image">
-              <Image Name="Table.jpg" />
-            </Folder>
+          <Folder Name="login">
             <Image Name="LobbyBG.jpg" />
+            <Image Name="word_login_10.png" />
+            <Image Name="word_login_7.png" />
+            <Image Name="btn_gg.png" />
+            <Image Name="zi_start.png" />
           </Folder>
         </Folder>
       </RootFolder>
