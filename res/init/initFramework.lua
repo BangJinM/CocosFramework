@@ -1,4 +1,4 @@
-require("framework.init")
+require(globel.FRAMEWORK_PATH.."init")
 
 globel.facade = framework.Facade.getInstance(framework.ApplicationName)
 

@@ -13,7 +13,7 @@ function loginMediator:listNotificationInterests()
 end
 
 function loginMediator:handleNotification( notification )
-    if notification == "login" then 
+    if notification.name == "login" then 
         cclog("login")
     end
 end
