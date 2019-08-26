@@ -1,5 +1,7 @@
-local config = config or {}
+globel = globel or {}
 
-config.meditor = {
-    require("games.start.mediator.loginMediator")
+globel.commandTable = {
+    registerCommand = require("games.start.Command.registerCommand"),
+    registerMediator = require("games.start.Command.registerMediator"),
+    registerProxy = require("games.start.Command.registerProxy"),
 }

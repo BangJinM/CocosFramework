@@ -1,18 +1,16 @@
-local StartUpCommand = class('StartUpCommand', framework.MacroCommand)
+local registerMediator = class('registerMediator', framework.SimpleCommand)
 
-function StartUpCommand:ctor()
-    StartUpCommand.super.ctor(self)
+function registerMediator:ctor() 
+    registerMediator.super.ctor(self)
+    require("games.config.mediatorConfig")
 end
 
-function StartUpCommand:initializeMacroCommand() 
-    require("games.config.config")
-end
-
-function StartUpCommand:execute(notification)
-    release_print("StartUpCommand!")
-    for k,v in ipairs(config.meditor) do
-        
+function registerMediator:execute(notification)
+    for k, v in ipairs(globel.meditorTable) do
+        local Mediator = require(v)
+        local mediatorInst = Mediator.new()
+        globel.facade:registerMediator(mediatorInst)
     end
 end
 
-return StartUpCommand
+return registerMediator

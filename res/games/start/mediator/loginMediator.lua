@@ -3,7 +3,7 @@ local loginMediator = class("loginMediator",framework.Mediator)
 loginMediator.NAME = "loginMediator"
 
 function loginMediator:ctor( )
-    loginMediator.super.ctor(self,self.NAME)
+    loginMediator.super.ctor(self)
 end
 
 function loginMediator:listNotificationInterests()

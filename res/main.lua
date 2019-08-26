@@ -5,7 +5,7 @@ cc.Director:getInstance():getScheduler():scheduleScriptFunc(breakSocketHandle, 0
 require("config")
 require "cocos.init"
 
-local cclog = function(...)
+cclog = function(...)
     print(string.format(...))
 end
 

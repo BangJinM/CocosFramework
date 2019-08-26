@@ -1,5 +1,6 @@
-local config = config or {}
+globel = globel or {}
 
-config.meditor = {
-    require("games.start.mediator.loginMediator")
+globel.proxyTable = {
+    LoginMediator = "games.start.mediator.loginMediator",
 }
+
