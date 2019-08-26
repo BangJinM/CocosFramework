@@ -16,10 +16,10 @@
  * @throws {Error} 
  *  If an attempt is made to instantiate Facade directly
 ]]
-local Controller = 		require(globel.FRAMEWORK_PATH .. "core.Controller")
-local Model = 			require(globel.FRAMEWORK_PATH .. "core.Model")
-local View = 			require(globel.FRAMEWORK_PATH .. "core.View")
-local Notification = 	require(globel.FRAMEWORK_PATH .. "patterns.observer.Notification")
+local Controller = 		require(globel.FRAMEWORK_PUREMVC_PATH .. "core.Controller")
+local Model = 			require(globel.FRAMEWORK_PUREMVC_PATH .. "core.Model")
+local View = 			require(globel.FRAMEWORK_PUREMVC_PATH .. "core.View")
+local Notification = 	require(globel.FRAMEWORK_PUREMVC_PATH .. "patterns.observer.Notification")
 
 local Facade = class("Facade")
 

@@ -24,6 +24,14 @@ local function main()
     collectgarbage("setstepmul", 5000)
 
     require "init.init"
+
+    local StartUpCommand = require("games.start.Command.StartUpCommand")
+    globel.facade:registerCommand("StartUp", StartUpCommand)
+    globel.facade:sendNotification("StartUp")
+
+    print("----------------------------------------------------------")
+    print("-----------------StartUpCommandExecute!-------------------")
+    print("----------------------------------------------------------")
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

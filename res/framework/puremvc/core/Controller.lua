@@ -51,8 +51,8 @@
  * @throws {Error}
  *  If instance for this Multiton key has already been constructed
 ]]
-local Observer = require(globel.FRAMEWORK_PATH .."patterns.observer.Observer")
-local View = require(globel.FRAMEWORK_PATH .."core.View")
+local Observer = require(globel.FRAMEWORK_PUREMVC_PATH .."patterns.observer.Observer")
+local View = require(globel.FRAMEWORK_PUREMVC_PATH .."core.View")
 
 local Controller = class('Controller')
 

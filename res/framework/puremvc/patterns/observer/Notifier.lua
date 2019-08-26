@@ -36,7 +36,7 @@
  * 
  * @constructor
 ]]
-local Facade = require(globel.FRAMEWORK_PATH.."patterns.facade.Facade")
+local Facade = require(globel.FRAMEWORK_PUREMVC_PATH.."patterns.facade.Facade")
 
 local Notifier = class("Notifier")
 

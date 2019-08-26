@@ -8,13 +8,15 @@ end
 
 function loginMediator:listNotificationInterests()
 	return {
-        "login"
+        "open"
     }
 end
 
 function loginMediator:handleNotification( notification )
-    if notification.name == "login" then 
-        cclog("login")
+    if notification.name == "open" then 
+        local s = display.newScene("NewScene")
+        s:addChild(framework.UIManager.createCsd("views.lobby.Scene"))
+        display.runScene(s)
     end
 end
 

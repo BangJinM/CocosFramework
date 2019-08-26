@@ -29,7 +29,7 @@
  *  The Proxy's data object
  * @constructor
 ]]
-local Notifier = require(globel.FRAMEWORK_PATH.."patterns.observer.Notifier")
+local Notifier = require(globel.FRAMEWORK_PUREMVC_PATH.."patterns.observer.Notifier")
 local Proxy = class('Proxy', Notifier)
 
 function Proxy:ctor(proxyName, data)

@@ -1,6 +1,7 @@
 
-
-function CreateCsd(fileName)
+framework = framework or {}
+local UIManager = class("UIManager")
+function UIManager.createCsd(fileName)
     local ui = require(fileName).create()
     if ui.root then
         local new_widget = ccui.Widget:create()
@@ -27,3 +28,5 @@ function CreateCsd(fileName)
     end
     return nil
 end
+
+framework.UIManager = UIManager
