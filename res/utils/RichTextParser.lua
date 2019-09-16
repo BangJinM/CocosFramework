@@ -27,8 +27,7 @@ end
 
 local parserRule = {
     color = " color='#(.-)'",
-    size = " size='a(.-)a'",
-    url = " url='(.-)'"
+    size = " size='(.-)'",
 }
 
 function RichTextParser:Parser(strValue)
