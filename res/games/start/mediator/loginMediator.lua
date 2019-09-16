@@ -26,9 +26,11 @@ function loginMediator:handleNotification( notification )
         local RichTextCreator = require("utils.RichTextCreator")
         local str = string.format( "每次<u>兑换</u>扣除%s点活力，获得%s经验。", 
             string.format( "<font size='20'>%s</font>", 1),
-            string.format( "<font color='#%s' url='www.baidu.com'><br>%s<br></font>", "#f40000", 10000) 
+            string.format( "<font color='#%s' button='true'><br>%s<br></font>", "#f40000", 10000 )
         )
-        local rich = RichTextCreator:_CreateRichTextWithAnything(str)
+        local rich = RichTextCreator:_CreateRichTextWithAnything(str,nil,nil,nil,function(  )
+            print("ddddddddddddddddddddddddddddd")
+        end)
         rich:setPosition(cc.p(480, 320))
         s:addChild(rich)
         -- local test = require("games.start.mediator.test")

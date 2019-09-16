@@ -28,6 +28,7 @@ end
 local parserRule = {
     color = " color='#(.-)'",
     size = " size='(.-)'",
+    button = " button='(.-)'"
 }
 
 function RichTextParser:Parser(strValue)
