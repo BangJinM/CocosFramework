@@ -21,7 +21,7 @@ function RichTextCreator:TransformToRGBValue(value)
     return cc.c3b(_r, _g, _b)
 end
 
-function RichTextCreator:_CreateRichElement(richText, strValue, size, color,callback)
+function RichTextCreator:_CreateRichElement(richText, strValue, size, color)
 
     local function createElement(_strValue, _size, _color)
         return ccui.RichElementText:create(0, _color, 255, _strValue, nil, _size)
@@ -41,11 +41,11 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color,call
 
                 label:setTouchEnabled(true)
                 label:addClickEventListener( function()
-                    if callback then
+                    if self.callback then
                         if nil == strValue.attributes.id then 
                             printError("strValue.attribute.buttonID = nil")
                         end
-                        callback(strValue.attributes.id)
+                        self.callback(strValue.attributes.id)
                     end
                 end )
             else
@@ -63,6 +63,8 @@ function RichTextCreator:_CreateRichTextWithAnything(value, width, defaultSize, 
         print("-------------------RichTextCreator:_CreateRichTextWithAnything invalid value")
         return nil
     end
+
+    self.callback = callback
 
     local _strValue = value
     _strValue = string.gsub(_strValue, "<p>", "")
@@ -82,13 +84,17 @@ function RichTextCreator:_CreateRichTextWithAnything(value, width, defaultSize, 
     for _, value in pairs(elements) do 
         local color = value.attributes.color ~= nil and self:TransformToRGBValue(value.attributes.color) or defaultColor
         local size = value.attributes.size ~= nil and tonumber(value.attributes.size) or defaultSize
-        self:_CreateRichElement(_richText, value, size, color,callback)
+        self:_CreateRichElement(_richText, value, size, color)
     end
 
     
 
     _richText:formatText()
     return _richText
+end
+
+function RichTextCreator:setCallBack( callback )
+    self.callback = callback
 end
 
 return RichTextCreator
