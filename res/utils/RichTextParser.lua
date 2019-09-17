@@ -40,7 +40,7 @@ local parserRule = {
     id = " id='(.-)'",
 }
 
-function RichTextParser:Parser(strValue)
+function RichTextParser:parser(strValue)
     local elements = {}
     if nil == strValue or string.len(strValue) == 0 then 
         table.insert( elements, getNilElement() ) 

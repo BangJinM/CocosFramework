@@ -6,6 +6,8 @@
 
 local RichTextCreator = class('RichTextCreator')
 
+local fontPath = "fonts/font.ttf"
+
 function RichTextCreator:createTextWithMultirow(targetString, fontSize, color)
     -- 返回一个普通的Text
     local _transformString = string.gsub(targetString, "\\n", "\n")
@@ -21,7 +23,7 @@ function RichTextCreator:TransformToRGBValue(value)
     return cc.c3b(_r, _g, _b)
 end
 
-function RichTextCreator:_CreateRichElement(richText, strValue, size, color)
+function RichTextCreator:createRichElement(richText, strValue, size, color)
 
     local function createElement(_strValue, _size, _color)
         return ccui.RichElementText:create(0, _color, 255, _strValue, nil, _size)
@@ -32,11 +34,10 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color)
             richText:pushBackElement(ccui.RichElementNewLine:create(0, color, 255))
         else
             local elementNode
+            local fp = strValue.attributes.fontPath or fontPath
             if strValue.attributes.type == "button" then 
-                local label = ccui.Text:create()
-                label:setString(value)
+                local label = ccui.Text:create(value, fp, size)
                 label:setTextColor(cc.c4b(color.r, color.g, color.b, 255))
-                label:setFontSize(size)
                 elementNode = ccui.RichElementCustomNode:create(0, cc.c3b(0, 0, 0), 255, label)
 
                 label:setTouchEnabled(true)
@@ -49,7 +50,7 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color)
                     end
                 end )
             else
-                elementNode = createElement(value, size, color)
+                elementNode = ccui.RichElementText:create(0, color, 255, value, fp, size)
             end
             richText:pushBackElement(elementNode)
         end
@@ -57,10 +58,10 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color)
 
 end
 
-function RichTextCreator:_CreateRichTextWithAnything(value, width, defaultSize, defaultColor, callback)
+function RichTextCreator:createRichText(value, width, defaultSize, defaultColor, callback)
     -- local _str = "打算的撒的<font color="1fcb20" size="a14a">大量经验</font>"
     if nil == value or string.len(value) == 0 then
-        print("-------------------RichTextCreator:_CreateRichTextWithAnything invalid value")
+        print("-------------------RichTextCreator:createRichText invalid value")
         return nil
     end
 
@@ -79,12 +80,12 @@ function RichTextCreator:_CreateRichTextWithAnything(value, width, defaultSize, 
     _richText:setContentSize(width, 0)
 
     local RichTextParser = require("utils.RichTextParser")
-    local elements = RichTextParser:Parser(_strValue)
+    local elements = RichTextParser:parser(_strValue)
 
     for _, value in pairs(elements) do 
         local color = value.attributes.color ~= nil and self:TransformToRGBValue(value.attributes.color) or defaultColor
         local size = value.attributes.size ~= nil and tonumber(value.attributes.size) or defaultSize
-        self:_CreateRichElement(_richText, value, size, color)
+        self:createRichElement(_richText, value, size, color)
     end
 
     
@@ -95,6 +96,14 @@ end
 
 function RichTextCreator:setCallBack( callback )
     self.callback = callback
+end
+
+function RichTextCreator:setFontPath( path )
+    if cc.FileUtils:getInstance():isFileExist(path) == true then 
+        fontPath = path
+    else
+        printError(path.." is not Exist!!!!")
+    end
 end
 
 return RichTextCreator
