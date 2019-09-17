@@ -1,3 +1,8 @@
+--[[
+    富文本生成器
+    例如：<font type='button' buttonID='1' color='#ffffff' size='20' >    dajljl</font>
+    解释成：生成《    dajljl》并拥有点击事件，并对调事件ID为1，字体颜色为#ffffff,字体大小为20
+--]]
 
 local RichTextCreator = class('RichTextCreator')
 
@@ -27,7 +32,7 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color,call
             richText:pushBackElement(ccui.RichElementNewLine:create(0, color, 255))
         else
             local elementNode
-            if strValue.attributes.button == "true" then 
+            if strValue.attributes.type == "button" then 
                 local label = ccui.Text:create()
                 label:setString(value)
                 label:setTextColor(cc.c4b(color.r, color.g, color.b, 255))
@@ -37,7 +42,10 @@ function RichTextCreator:_CreateRichElement(richText, strValue, size, color,call
                 label:setTouchEnabled(true)
                 label:addClickEventListener( function()
                     if callback then
-                        callback()
+                        if nil == strValue.attributes.id then 
+                            printError("strValue.attribute.buttonID = nil")
+                        end
+                        callback(strValue.attributes.id)
                     end
                 end )
             else

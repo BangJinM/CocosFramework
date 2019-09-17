@@ -4,17 +4,17 @@ local RichTextParser = class("RichTextParser")
 -- 
 --
 
-local results={
-    [1] = {
-        strValue = "",
-        attribute = {
-            size = 20,
-            url = "",
-            color = "",
-        },
-        strValues = {},
-    }
-}
+-- local results={
+--     [1] = {
+--         strValue = "",
+--         attribute = {
+--             size = 20,
+--             url = "",
+--             color = "",
+--         },
+--         strValues = {},
+--     }
+-- }
 
 local function getNilElement( )
     local element= {
@@ -25,10 +25,19 @@ local function getNilElement( )
     return element
 end
 
+--[[
+    color='#ffffff' 字体颜色
+    size='20' 字体大小
+    type='button' 目前只支持点击事件（button）
+    fontPath='font\font.ttf' 字体目录
+    id='1' 在type=button的时候被使用并在回调中当作参数
+--]]
 local parserRule = {
     color = " color='#(.-)'",
     size = " size='(.-)'",
-    button = " button='(.-)'"
+    type = " type='(.-)'",
+    fontPath = " fontPath='(.-)'",
+    id = " id='(.-)'",
 }
 
 function RichTextParser:Parser(strValue)
@@ -42,7 +51,6 @@ function RichTextParser:Parser(strValue)
     while string.len(_strValue) > 0 do
         local _startBeginFont, _startEndFont = string.find(_strValue, "<font ", 1)
         local element = getNilElement()
-        -- <font> xxx </font>
         if _startBeginFont == 1 then
 
             local _, _attributEnd = string.find(_strValue, ">", 1)
