@@ -7,14 +7,9 @@
 local RichTextCreator = class('RichTextCreator')
 
 local fontPath = "fonts/font.ttf"
-
-function RichTextCreator:createTextWithMultirow(targetString, fontSize, color)
-    -- 返回一个普通的Text
-    local _transformString = string.gsub(targetString, "\\n", "\n")
-    local _text = ccui.Text:create(_transformString, nil, fontSize)
-    _text:setColor(color)
-    return _text
-end
+local DEFAULTSIZE =  20
+local DEFAULTCOLOR = cc.c3b(0, 0, 0)
+local DEFAULTWIDTH = 200
 
 function RichTextCreator:TransformToRGBValue(value)
     local _r = tonumber("0x" .. string.sub(value, 1, 2))
@@ -24,11 +19,6 @@ function RichTextCreator:TransformToRGBValue(value)
 end
 
 function RichTextCreator:createRichElement(richText, strValue, size, color)
-
-    local function createElement(_strValue, _size, _color)
-        return ccui.RichElementText:create(0, _color, 255, _strValue, nil, _size)
-    end
-
     for _, value in pairs(strValue.strValues) do
         if value == "\n" then
             richText:pushBackElement(ccui.RichElementNewLine:create(0, color, 255))
@@ -59,7 +49,10 @@ function RichTextCreator:createRichElement(richText, strValue, size, color)
 end
 
 function RichTextCreator:createRichText(value, width, defaultSize, defaultColor, callback)
-    -- local _str = "打算的撒的<font color="1fcb20" size="a14a">大量经验</font>"
+    width = width or DEFAULTWIDTH
+    defaultSize = defaultSize or DEFAULTSIZE
+    defaultColor = defaultColor or DEFAULTCOLOR
+
     if nil == value or string.len(value) == 0 then
         print("-------------------RichTextCreator:createRichText invalid value")
         return nil
@@ -70,11 +63,6 @@ function RichTextCreator:createRichText(value, width, defaultSize, defaultColor,
     local _strValue = value
     _strValue = string.gsub(_strValue, "<p>", "")
 
-    --
-    width = width or 400
-    defaultSize = defaultSize or 20
-    defaultColor = defaultColor or cc.c3b(0, 0, 0)
-
     local _richText = ccui.RichText:create()
     _richText:ignoreContentAdaptWithSize(false)
     _richText:setContentSize(width, 0)
@@ -82,13 +70,12 @@ function RichTextCreator:createRichText(value, width, defaultSize, defaultColor,
     local RichTextParser = require("utils.RichTextParser")
     local elements = RichTextParser:parser(_strValue)
 
+    -- 遍历所有字块
     for _, value in pairs(elements) do 
         local color = value.attributes.color ~= nil and self:TransformToRGBValue(value.attributes.color) or defaultColor
         local size = value.attributes.size ~= nil and tonumber(value.attributes.size) or defaultSize
         self:createRichElement(_richText, value, size, color)
     end
-
-    
 
     _richText:formatText()
     return _richText
