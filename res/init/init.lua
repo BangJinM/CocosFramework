@@ -1,10 +1,10 @@
 
-globel = globel or {}
+global = global or {}
 
-globel.PROJECT_PATH = ""
-globel.FRAMEWORK_PATH           = globel.PROJECT_PATH .. "framework."
-globel.FRAMEWORK_PUREMVC_PATH   = globel.FRAMEWORK_PATH .. "puremvc."
+global.PROJECT_PATH = ""
+global.FRAMEWORK_PATH           = global.PROJECT_PATH .. "framework."
+global.FRAMEWORK_PUREMVC_PATH   = global.FRAMEWORK_PATH .. "puremvc."
 
 require("init.game_platform")
-require(globel.FRAMEWORK_PATH .. "initFramework")
+require(global.FRAMEWORK_PATH .. "initFramework")
 

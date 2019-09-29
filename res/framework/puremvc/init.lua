@@ -1,13 +1,13 @@
-globel = globel or {}
+global = global or {}
 
 framework = framework or {}
 
 framework.ApplicationName = "ApplicationName"
 
-framework.Facade =         require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.facade.Facade')
-framework.Mediator =       require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.mediator.Mediator')
-framework.Proxy =          require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.proxy.Proxy')
-framework.SimpleCommand =  require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.command.SimpleCommand')
-framework.MacroCommand =   require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.command.MacroCommand')
-framework.Notifier =       require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.observer.Notifier')
-framework.Notification =   require( globel.FRAMEWORK_PUREMVC_PATH .. 'patterns.observer.Notification')
+framework.Facade =         require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.facade.Facade')
+framework.Mediator =       require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.mediator.Mediator')
+framework.Proxy =          require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.proxy.Proxy')
+framework.SimpleCommand =  require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.command.SimpleCommand')
+framework.MacroCommand =   require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.command.MacroCommand')
+framework.Notifier =       require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.observer.Notifier')
+framework.Notification =   require( global.FRAMEWORK_PUREMVC_PATH .. 'patterns.observer.Notification')

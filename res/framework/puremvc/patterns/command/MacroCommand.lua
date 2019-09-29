@@ -32,7 +32,7 @@
  *     };
  * @constructor
 ]]
-local Notifier = require(globel.FRAMEWORK_PUREMVC_PATH .."patterns.observer.Notifier")
+local Notifier = require(global.FRAMEWORK_PUREMVC_PATH .."patterns.observer.Notifier")
 local MacroCommand = class('MacroCommand', Notifier)
 
 function MacroCommand:ctor()

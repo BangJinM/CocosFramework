@@ -1,5 +1,5 @@
-globel = globel or {}
+global = global or {}
 
-globel.meditorTable = {
+global.meditorTable = {
     "games.start.mediator.loginMediator",
 }

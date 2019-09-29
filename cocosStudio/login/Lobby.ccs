@@ -12,10 +12,10 @@
         </Folder>
         <Folder Name="ui">
           <Folder Name="login">
+            <Image Name="btn_gg.png" />
             <Image Name="LobbyBG.jpg" />
             <Image Name="word_login_10.png" />
             <Image Name="word_login_7.png" />
-            <Image Name="btn_gg.png" />
             <Image Name="zi_start.png" />
           </Folder>
         </Folder>

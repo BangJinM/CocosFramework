@@ -1,6 +1,6 @@
-globel = globel or {}
+global = global or {}
 
-globel.proxyTable = {
+global.proxyTable = {
     LoginMediator = "games.start.mediator.loginMediator",
 }
 

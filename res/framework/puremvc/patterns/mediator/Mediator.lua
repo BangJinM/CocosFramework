@@ -34,7 +34,7 @@
  * @param {Object} [viewComponent]
  *  The Mediators {@link #setViewComponent viewComponent}.
 ]]
-local Notifier = require(globel.FRAMEWORK_PUREMVC_PATH .."patterns.observer.Notifier")
+local Notifier = require(global.FRAMEWORK_PUREMVC_PATH .."patterns.observer.Notifier")
 local Mediator = class('Mediator', Notifier)
 
 function Mediator:ctor(mediatorName, viewComponent)

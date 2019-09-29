@@ -24,7 +24,7 @@ function StartUpCommand:execute( note )
 
     cclog("StartUpCommand sendNotification to LoginMediator!")
 
-    globel.facade:sendNotification("open")
+    global.facade:sendNotification("open")
 end
 
 return StartUpCommand

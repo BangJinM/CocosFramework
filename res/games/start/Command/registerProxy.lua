@@ -6,7 +6,7 @@ function registerProxy:ctor()
 end
 
 function registerProxy:execute(notification)
-    for k, v in ipairs(globel.proxyTable) do
+    for k, v in ipairs(global.proxyTable) do
         
     end
 end

@@ -1,7 +1,12 @@
-globel = globel or {}
+global = global or {}
 
-globel.commandTable = {
-    registerCommand = require("games.start.Command.registerCommand"),
-    registerMediator = require("games.start.Command.registerMediator"),
-    registerProxy = require("games.start.Command.registerProxy"),
+global.commandNameTable = {
+    GrayShaderCommand = "GrayShaderCommand",
+}
+
+global.commandTable = {
+    registerCommand = "games.start.Command.registerCommand",
+    registerMediator = "games.start.Command.registerMediator",
+    registerProxy = "games.start.Command.registerProxy",
+    GrayShaderCommand = "games.start.Command.GrayShaderCommand",
 }

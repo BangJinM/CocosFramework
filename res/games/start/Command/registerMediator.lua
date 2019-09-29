@@ -6,10 +6,10 @@ function registerMediator:ctor()
 end
 
 function registerMediator:execute(notification)
-    for k, v in ipairs(globel.meditorTable) do
+    for k, v in ipairs(global.meditorTable) do
         local Mediator = require(v)
         local mediatorInst = Mediator.new()
-        globel.facade:registerMediator(mediatorInst)
+        global.facade:registerMediator(mediatorInst)
     end
 end
 
