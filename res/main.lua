@@ -25,7 +25,7 @@ local function main()
 
     require "init.init"
 
-    local StartUpCommand = require("games.start.Command.StartUpCommand")
+    local StartUpCommand = require("games.Command.StartUpCommand")
     global.facade:registerCommand("StartUp", StartUpCommand)
     global.facade:sendNotification("StartUp")
 

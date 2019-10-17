@@ -5,8 +5,7 @@ global.commandNameTable = {
 }
 
 global.commandTable = {
-    registerCommand = "games.start.Command.registerCommand",
-    registerMediator = "games.start.Command.registerMediator",
-    registerProxy = "games.start.Command.registerProxy",
-    GrayShaderCommand = "games.start.Command.GrayShaderCommand",
+    GrayShaderCommand = "games.Command.GrayShaderCommand",
+    EndGameCommand = "games.Command.EndGameCommand",
+    RestartGameCommand = "games.Command.RestartGameCommand",
 }
