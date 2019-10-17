@@ -5,7 +5,6 @@ State.NAME = "State"
 function State:ctor( )
     self.conditions = {}
     self.events = {}
-    self.isFirstEnter = true
 end
 
 function State:reset( )
@@ -51,12 +50,7 @@ function State:removeEvent( nextstate)
     self.events[nextstate] = nil
 end
 
-function State:checkFirstEnter( )
-    return self.isFirstEnter
-end
-
 function State:onEnter( )
-    self.isFirstEnter = false
 end
 
 function State:onExit( )
