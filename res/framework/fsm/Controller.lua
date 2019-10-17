@@ -4,7 +4,7 @@ function PlayerController:ctor(  )
     self.states = {}
     self.curState = nil
     self.preState = nil
-    self.stateNew = false
+    self.stateNew = false  -- 标记State是否是调用onEnter
 end
 
 function PlayerController:addState( state )
@@ -17,6 +17,7 @@ function PlayerController:removeState( state )
     self.states[state:getName()] = nil
 end
 
+-- 转换状态
 function PlayerController:transition( nextState )
     if not self.curState then 
         self.stateNew = true
@@ -35,6 +36,7 @@ function PlayerController:transition( nextState )
     return false
 end
 
+-- 更新
 function PlayerController:update( )
     if self.preState then
         self.preState:onExit()
