@@ -22,8 +22,8 @@ function PlayerIdleState:onExit( )
     print("PlayerIdleState" .. "onExit")
 end
 
-function PlayerIdleState:update( )
-    print("PlayerIdleState" .. "update")
+function PlayerIdleState:tick( )
+    print("PlayerIdleState" .. "tick")
 end
 
 return PlayerIdleState

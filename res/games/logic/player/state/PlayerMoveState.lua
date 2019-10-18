@@ -21,8 +21,8 @@ function PlayerMoveState:onExit( )
     print("PlayerMoveState" .. "onExit")
 end
 
-function PlayerMoveState:update( )
-    print("PlayerMoveState" .. "update")
+function PlayerMoveState:tick( )
+    print("PlayerMoveState" .. "tick")
 end
 
 return PlayerMoveState

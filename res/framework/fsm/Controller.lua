@@ -1,24 +1,24 @@
-local PlayerController = class("PlayerController")
+local Controller = class("Controller")
 
-function PlayerController:ctor(  )
+function Controller:ctor(  )
     self.states = {}
     self.curState = nil
     self.preState = nil
     self.stateNew = false  -- 标记State是否是调用onEnter
 end
 
-function PlayerController:addState( state )
+function Controller:addState( state )
     if not state then return end
     self.states[state:getName()] = state
 end
 
-function PlayerController:removeState( state )
+function Controller:removeState( state )
     if not state then return end
     self.states[state:getName()] = nil
 end
 
 -- 转换状态
-function PlayerController:transition( nextState )
+function Controller:transition( nextState )
     if not self.curState then 
         self.stateNew = true
         self.curState = self.states[nextState]
@@ -37,7 +37,7 @@ function PlayerController:transition( nextState )
 end
 
 -- 更新
-function PlayerController:update( )
+function Controller:tick( )
     if self.preState then
         self.preState:onExit()
         self.preState = nil
@@ -46,7 +46,16 @@ function PlayerController:update( )
         self.curState:onEnter()
         self.stateNew = false
     end
-    self.curState:update()
+    if self.curState == nil then return end
+    self.curState:tick()
 end
 
-return PlayerController
+function Controller:onEnter(  )
+    
+end
+
+function Controller:onExit(  )
+    
+end
+
+return Controller

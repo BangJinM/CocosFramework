@@ -24,7 +24,9 @@ function StartUpCommand:execute( note )
 
     cclog("StartUpCommand sendNotification to LoginMediator!")
 
-    global.facade:sendNotification("open")
+    local gameWorldController = require("games.logic.GameWorldController")
+    gameWorldController.new()
+    -- global.facade:sendNotification("open")
 end
 
 return StartUpCommand

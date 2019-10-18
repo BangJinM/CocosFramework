@@ -16,7 +16,7 @@ end
 
 function loginMediator:handleNotification( notification )
     if notification.name == "open" then 
-        local s = display.newScene("NewScene")
+        local s = display.getRunningScene()
         require("games.utils.UIManager")
         local _root = framework.UIManager.createCsd("games.views.csb.login.login")
         s:addChild(_root)
@@ -50,12 +50,12 @@ function loginMediator:handleNotification( notification )
         end)
         local PlayerController = require("games.logic.player.playerController").new()
         PlayerController:transition("PlayerIdleState")
-        PlayerController:update()
+        PlayerController:tick()
         PlayerController:transition("PlayerMoveState")
-        PlayerController:update()
+        PlayerController:tick()
         PlayerController:transition("PlayerMoveState")
-        PlayerController:update()
-        PlayerController:update()
+        PlayerController:tick()
+        PlayerController:tick()
     end
 end
 
