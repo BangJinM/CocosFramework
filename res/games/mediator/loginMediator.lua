@@ -20,8 +20,7 @@ function loginMediator:handleNotification( notification )
         require("games.utils.UIManager")
         local _root = framework.UIManager.createCsd("games.views.csb.login.login")
         s:addChild(_root)
-        display.runScene(s)
-
+        
         local MainGamePadLayout = require("games.views..layer.GameRockerLayer").create()
         s:addChild(MainGamePadLayout)
 
@@ -48,14 +47,6 @@ function loginMediator:handleNotification( notification )
         end,function (  )
             print("3")
         end)
-        local PlayerController = require("games.logic.player.playerController").new()
-        PlayerController:transition("PlayerIdleState")
-        PlayerController:tick()
-        PlayerController:transition("PlayerMoveState")
-        PlayerController:tick()
-        PlayerController:transition("PlayerMoveState")
-        PlayerController:tick()
-        PlayerController:tick()
     end
 end
 

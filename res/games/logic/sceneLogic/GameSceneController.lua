@@ -10,14 +10,6 @@ function GameSceneController:ctor( )
     self:addState(GameScene.new())
 end
 
-function GameSceneController:onEnter( )
-    
-end
-
-function GameSceneController:onExit( )
-    
-end
-
 function GameSceneController:transition( nextScene )
     if not self.curState then 
         self.stateNew = true
@@ -28,27 +20,16 @@ function GameSceneController:transition( nextScene )
         return false
     end 
     self.stateNew = true
-    self.preState = self.curState
     self.curState = self.states[nextScene]
     return true
 end
 
 -- 更新
 function GameSceneController:tick( )
-    if self.preState then
-        self.preState:onExit()
-        self.preState = nil
-    end
     if self.stateNew then 
-        self.curState:onEnter()
+        self.curState:onEnterState()
         self.stateNew = false
-        self.onEnterStart = true
         return
-    elseif self.onEnterStart then 
-        if self.curState.onEnterFisih then 
-            self.curState:onEnterFisih()
-        end
-        self.onEnterStart = false
     end
     if self.curState == nil then return end
     self.curState:tick()

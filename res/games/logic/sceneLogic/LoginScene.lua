@@ -1,4 +1,5 @@
-local LoginScene = class("LoginScene", global.fsm.State)
+local Scene = require("games.logic.sceneLogic.Scene")
+local LoginScene = class("LoginScene",Scene )
 
 LoginScene.NAME = "LoginScene"
 
@@ -8,18 +9,7 @@ function LoginScene:ctor( )
 end
 
 function LoginScene:onEnter( )
-    if self.scene == nil then 
-        self.scene = display.newScene("LoginScene")
-    end
-    cc.Director:getInstance():replaceScene(self.scene)
-end
-
-function LoginScene:onEnterFisih( )
     global.facade:sendNotification("open")
-end
-
-function LoginScene:onExit( )
-    print("LoginScene:onExit")
 end
 
 function LoginScene:tick( )
