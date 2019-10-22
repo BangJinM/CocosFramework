@@ -34,5 +34,8 @@ function Scene.sceneEvent(self,event)
     end
 end
 
+function Scene:onCleanup( )
+    self.scene = nil
+end
 
 return Scene

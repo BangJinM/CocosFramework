@@ -2,8 +2,6 @@ local loginMediator = class("loginMediator",framework.Mediator)
 
 loginMediator.NAME = "loginMediator"
 
-
-
 function loginMediator:ctor( )
     loginMediator.super.ctor(self)
 end
@@ -20,7 +18,7 @@ function loginMediator:handleNotification( notification )
         require("games.utils.UIManager")
         local _root = framework.UIManager.createCsd("games.views.csb.login.login")
         s:addChild(_root)
-        
+
         local MainGamePadLayout = require("games.views..layer.GameRockerLayer").create()
         s:addChild(MainGamePadLayout)
 

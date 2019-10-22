@@ -2,6 +2,7 @@ local GameWorldController = class("GameWorldController")
 
 local GameSceneController = require("games.logic.sceneLogic.GameSceneController")
 local PlayerController = require("games.logic.player.PlayerController")
+
 function GameWorldController:ctor( )
     self.playerController = PlayerController.new()
     self.gameSceneController = GameSceneController.new()
@@ -25,8 +26,10 @@ function GameWorldController:tick( )
     self.gameSceneController:tick()
     i = i + 1
     print(i)
-    if i == 1000 then 
+    if i == 500 then 
         self.gameSceneController:transition("GameScene")
+    elseif i == 1200 then 
+        self.gameSceneController:transition("LoginScene")
     end 
 end
 
