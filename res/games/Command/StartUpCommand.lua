@@ -12,8 +12,9 @@ function StartUpCommand:initializeMacroCommand()
     local proxy = require("games.Command.register.registerProxy")
 
     self:addSubCommand(command)
-    self:addSubCommand(mediator)
     self:addSubCommand(proxy)
+    self:addSubCommand(mediator)
+
     cclog("dddddddddddddddddddddddddddddddddddddddddddddddd")
 end
 

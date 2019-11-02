@@ -6,9 +6,21 @@ function registerProxy:ctor()
 end
 
 function registerProxy:execute(notification)
-    for k, v in ipairs(global.proxyTable) do
-        
+    local proxyTable = {
+
+    }
+    
+    local callback = function (key)
+        local proxy = require(key).new()
+        global.facade:registerProxy( proxy)
     end
+
+    for k, v in ipairs(proxyTable) do
+        local param = v
+        global.Task:addLoadingTask(param,callback)
+    end
+
+    global.Task:timerBegan()
 end
 
 return registerProxy

@@ -6,11 +6,23 @@ function registerMediator:ctor()
 end
 
 function registerMediator:execute(notification)
-    for k, v in ipairs(global.meditorTable) do
-        local Mediator = require(v)
-        local mediatorInst = Mediator.new()
-        global.facade:registerMediator(mediatorInst)
+    local mediatorTable = {
+        "games.mediator.loginMediator",
+    }
+
+    local callback = function (key)
+        local meditor = require(key).new()
+        global.facade:registerMediator( meditor)
     end
+
+
+    for k, v in ipairs(mediatorTable) do
+
+        local param = v
+        global.Task:addLoadingTask(param,callback)
+    end
+
+    global.Task:timerBegan()
 end
 
 return registerMediator

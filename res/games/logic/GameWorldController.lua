@@ -19,18 +19,9 @@ function GameWorldController:onEnter( )
     self.gameSceneController:transition("LoginScene")
 end
 
-local i = 1
-local t = 0 
 function GameWorldController:tick( )
     self.playerController:tick()
     self.gameSceneController:tick()
-    i = i + 1
-    print(i)
-    if i == 500 then 
-        self.gameSceneController:transition("GameScene")
-    elseif i == 1200 then 
-        self.gameSceneController:transition("LoginScene")
-    end 
 end
 
 function GameWorldController:onExit( )

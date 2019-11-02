@@ -9,7 +9,7 @@ function LoginScene:ctor( )
 end
 
 function LoginScene:onEnter( )
-    global.facade:sendNotification("open")
+    global.facade:sendNotification(global.NotificationType.Login_Open)
 end
 
 function LoginScene:tick( )
