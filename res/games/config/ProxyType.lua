@@ -1,0 +1,5 @@
+local ProxyType = {
+    
+}
+
+return ProxyType
