@@ -9,4 +9,8 @@ require("init.game_platform")
 require(global.FRAMEWORK_PATH .. "initFramework")
 
 require("init.initWindowsUtils")
+require("games.utils.init")
 
+global.CommandType = require("games.config.CommandType")
+global.NotificationType = require("games.config.NotificationType")
+global.ProxyType = require("games.config.ProxyType")

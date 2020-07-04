@@ -57,7 +57,7 @@ function State:onExit( )
     
 end
 
-function State:update( )
+function State:tick( )
     
 end
 
